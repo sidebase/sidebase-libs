@@ -1,11 +1,11 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite"
 
 export default defineConfig({
   test: {
     threads: false,
     coverage: {
-      enabled: true,
+      enabled: false,
       lines: 90,
       functions: 90,
       branches: 90,
