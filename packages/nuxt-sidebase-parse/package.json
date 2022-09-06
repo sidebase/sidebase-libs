@@ -6,14 +6,26 @@
   },
   "version": "0.1.0",
   "description": "Use data with confidence in nuxt using `zod` ",
-  "main": "dist/",
-  "module": "dist/",
   "type": "module",
   "scripts": {
     "test": "vitest --run",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
-    "build": "rm -rf dist/ && tsc --build"
+    "type": "tsc --noEmit",
+    "build": "tsup src/ --format cjs,esm"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BracketJohn/sidebase-libs"
@@ -38,6 +50,7 @@
     "@typescript-eslint/parser": "^5.36.2",
     "@vitest/coverage-c8": "^0.23.1",
     "eslint": "^8.23.0",
+    "tsup": "^6.2.3",
     "typescript": "^4.8.2",
     "vitest": "^0.23.1"
   },

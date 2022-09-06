@@ -12,8 +12,12 @@
     "declaration": true,
     "skipLibCheck": true,
     "strict": true,
-    "sourceMap": true,
-    "target": "ES6",
-    "outDir": "dist"
+    "target": "es2020",
+    "module": "esnext",
+    "lib": [
+      "ESNext"
+    ],
+    "outDir": "dist",
+    "esModuleInterop": true
   }
 }
