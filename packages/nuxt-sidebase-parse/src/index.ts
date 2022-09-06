@@ -25,27 +25,27 @@ const apiValidateWithSchema = <ZodSchema extends z.ZodTypeAny>(
  *
  * Cookies are part of the HTTP standard and may be send with a request.
  *
- * @param {CompatibilityEvent} event - Input to parser using the `schema`
+ * @param {CompatibilityEvent} event - Input to parse using the passed `schema`
  * @param {ZodSchema} schema - Error code of error if parsing fails
  * @param {string} [errorCode=422] - Optional error message if parsing fails
- * @param {string} [errorMessage="Data validation failed"] - Optional error message if parsing fails
+ * @param {string} [errorMessage="Data parsing failed"] - Optional error message if parsing fails
  */
-async function parseBodyAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Body validation failed") {
+async function parseBodyAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Body parsing failed") {
   const data = await readBody(event)
   return apiValidateWithSchema(data, schema, errorCode, errorMessage)
 }
 
 /**
- * Parse the params of a `h3` event.
+ * Parse the parameters of a `h3` event.
  *
  * For example `/[test].get.ts` binds the parameter `test` to a value, for example `/1` then results in `test = 1`
  *
- * @param {CompatibilityEvent} event - Input to parser using the `schema`
+ * @param {CompatibilityEvent} event - Input to parse using the passed `schema`
  * @param {ZodSchema} schema - Error code of error if parsing fails
  * @param {string} [errorCode=422] - Optional error message if parsing fails
- * @param {string} [errorMessage="Data validation failed"] - Optional error message if parsing fails
+ * @param {string} [errorMessage="Data parsing failed"] - Optional error message if parsing fails
  */
-function parseParamsAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Query validation failed") {
+function parseParamsAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Parameter parsing failed") {
   const data = event.context.params
   return apiValidateWithSchema(data, schema, errorCode, errorMessage)
 }
@@ -55,12 +55,12 @@ function parseParamsAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent
  *
  * For example `/bar?sort=ASC` binds the query value `sort = "ASC"`
  *
- * @param {CompatibilityEvent} event - Input to parser using the `schema`
+ * @param {CompatibilityEvent} event - Input to parse using the passed `schema`
  * @param {ZodSchema} schema - Error code of error if parsing fails
  * @param {string} [errorCode=422] - Optional error message if parsing fails
- * @param {string} [errorMessage="Data validation failed"] - Optional error message if parsing fails
+ * @param {string} [errorMessage="Data parsing failed"] - Optional error message if parsing fails
  */
-function parseQueryAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Query validation failed") {
+function parseQueryAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Query parsing failed") {
   const data = getQuery(event)
   return apiValidateWithSchema(data, schema, errorCode, errorMessage)
 }
@@ -70,12 +70,12 @@ function parseQueryAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent,
  *
  * Cookies are part of the HTTP standard and send with every request.
  *
- * @param {CompatibilityEvent} event - Input to parser using the `schema`
+ * @param {CompatibilityEvent} event - Input to parse using the passed `schema`
  * @param {ZodSchema} schema - Error code of error if parsing fails
  * @param {string} [errorCode=422] - Optional error message if parsing fails
- * @param {string} [errorMessage="Data validation failed"] - Optional error message if parsing fails
+ * @param {string} [errorMessage="Data parsing failed"] - Optional error message if parsing fails
  */
-function parseCookieAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Query validation failed") {
+function parseCookieAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Cookie parsing failed") {
   const data = parseCookies(event)
   return apiValidateWithSchema(data, schema, errorCode, errorMessage)
 }
@@ -85,12 +85,12 @@ function parseCookieAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent
  *
  * Cookies are part of the HTTP standard and send with every request.
  *
- * @param {CompatibilityEvent} event - Input to parser using the `schema`
+ * @param {CompatibilityEvent} event - Input to parse using the passed `schema`
  * @param {ZodSchema} schema - Error code of error if parsing fails
  * @param {string} [errorCode=422] - Optional error message if parsing fails
- * @param {string} [errorMessage="Data validation failed"] - Optional error message if parsing fails
+ * @param {string} [errorMessage="Data parsing failed"] - Optional error message if parsing fails
  */
-function parseHeaderAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Query validation failed") {
+function parseHeaderAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent, schema: ZodSchema, errorCode = 422, errorMessage = "Header parsing failed") {
   const data = getHeaders(event)
   return apiValidateWithSchema(data, schema, errorCode, errorMessage)
 }
@@ -115,13 +115,22 @@ function parseHeaderAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent
  * // -> output: `1` (as a number, as `z` also deserializes)
  * ```
  *
- * @param {any | Promise<any>} dataOrPromise - Input to parser using the `schema`
+ * @param {any | Promise<any>} dataOrPromise - Input to parse using the passed `schema`
  * @param {ZodSchema} schema - Error code of error if parsing fails
  * @param {string} [errorCode=422] - Optional error message if parsing fails
- * @param {string} [errorMessage="Data validation failed"] - Optional error message if parsing fails
+ * @param {string} [errorMessage="Data parsing failed"] - Optional error message if parsing fails
  */
-async function parseDataAs<ZodSchema extends z.ZodTypeAny>(dataOrPromise: any | Promise<any>, schema: ZodSchema, errorCode = 422, errorMessage = "Data validation failed") {
-  const data = await dataOrPromise
+async function parseDataAs<ZodSchema extends z.ZodTypeAny>(dataOrPromise: any | Promise<any>, schema: ZodSchema, errorCode = 422, errorMessage = "Data parsing failed") {
+  let data
+  try {
+    data = await dataOrPromise
+  } catch (error) {
+    throw createError({
+      statusCode: errorCode,
+      statusMessage: "Data promise was rejected",
+      data: error,
+    })
+  }
   return apiValidateWithSchema(data, schema, errorCode, errorMessage)
 }
 
@@ -147,8 +156,20 @@ async function parseDataAs<ZodSchema extends z.ZodTypeAny>(dataOrPromise: any | 
  * // -> output: `object` (this is a parsed date, not a date string!)
  * ```
  */
-function makeParser<ZodSchema extends z.ZodTypeAny>(schema: ZodSchema, errorCode = 422, errorMessage = "Data validation failed") {
-  return async (data: any | Promise<any>, errorCodeOverwrite = undefined, errorMessageOverwrite = undefined) => apiValidateWithSchema(await data, schema, errorCodeOverwrite || errorCode, errorMessageOverwrite || errorMessage)
+function makeParser<ZodSchema extends z.ZodTypeAny>(schema: ZodSchema, errorCode = 422, errorMessage = "Data parsing failed") {
+  return async (dataOrPromise: any | Promise<any>, errorCodeOverwrite = undefined, errorMessageOverwrite = undefined) => {
+    let data
+    try {
+      data = await dataOrPromise
+    } catch (error) {
+      throw createError({
+        statusCode: errorCodeOverwrite || errorCode,
+        statusMessage: "Data promise was rejected",
+        data: error,
+      })
+    }
+    return apiValidateWithSchema(await data, schema, errorCodeOverwrite || errorCode, errorMessageOverwrite || errorMessage)
+  }
 }
 
 export {
