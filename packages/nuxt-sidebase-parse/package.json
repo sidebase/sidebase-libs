@@ -27,7 +27,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sodestream-tech/sidebase-libs"
+    "url": "git+https://github.com/sidestream-tech/sidebase-libs"
   },
   "keywords": [
     "zod",
@@ -43,7 +43,7 @@
   "bugs": {
     "url": "https://github.com/sidestream-tech/sidebase/issues/new/choose"
   },
-  "homepage": "https://github.com/sodestream-tech/sidebase-libs/tree/main/packages/nuxt-sidebase-parse",
+  "homepage": "https://github.com/sidestream-tech/sidebase-libs/tree/main/packages/nuxt-sidebase-parse",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
