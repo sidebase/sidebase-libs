@@ -10,7 +10,7 @@
     "test": "vitest --run",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "type": "tsc --noEmit",
-    "build": "tsup src/ --format cjs,esm"
+    "build": "rm -rf dist && tsup src/ --format cjs,esm"
   },
   "exports": {
     ".": {
