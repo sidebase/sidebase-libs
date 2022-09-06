@@ -1,5 +1,7 @@
 vitest.config.ts
 tsconfig.json
+.eslintrc
 
 coverage/
 tests/
+src/
