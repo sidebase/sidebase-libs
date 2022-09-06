@@ -5,11 +5,11 @@
     "node_modules"
   ],
   "include": [
-    "src/**/*",
-    "vitest.config.ts"
+    "src"
   ],
   "compilerOptions": {
     "moduleResolution": "node",
+    "declaration": true,
     "strict": true,
     "sourceMap": true,
     "target": "ES6",

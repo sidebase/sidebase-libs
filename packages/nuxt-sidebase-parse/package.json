@@ -1,17 +1,22 @@
 {
   "name": "@sidestream-tech/nuxt-sidebase-parse",
+  "engines": {
+    "node": ">=16.14.2",
+    "npm": ">=8.5.0"
+  },
   "version": "0.0.1-development-2",
   "description": "Use data with confidence in nuxt using `zod` ",
-  "main": "index.ts",
+  "main": "dist/",
+  "module": "dist/",
+  "type": "module",
   "scripts": {
     "test": "vitest --run",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
-    "build": "tsc --build",
-    "clean": "tsc --build --clean"
+    "build": "rm -rf dist/ && tsc --build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sidestream-tech/nuxt-sidebase-zod.git"
+    "url": "git+https://github.com/BracketJohn/sidebase-libs"
   },
   "keywords": [
     "zod",
@@ -22,13 +27,15 @@
     "vue",
     "h3"
   ],
-  "author": "sidestream-tech",
+  "author": "sidestream-tech <support@sidestream.tech>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sidestream-tech/nuxt-sidebase-zod/issues"
+    "url": "https://github.com/sidestream-tech/sidebase/issues"
   },
-  "homepage": "https://github.com/sidestream-tech/nuxt-sidebase-zod#readme",
+  "homepage": "https://github.com/BracketJohn/sidebase-libs/tree/main/packages/nuxt-sidebase-parse",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
     "@vitest/coverage-c8": "^0.23.1",
     "eslint": "^8.23.0",
     "jsdom": "^20.0.0",
