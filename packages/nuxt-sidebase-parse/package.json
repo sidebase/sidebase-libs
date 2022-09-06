@@ -1,6 +1,6 @@
 {
   "name": "@sidestream-tech/nuxt-sidebase-parse",
-  "version": "0.0.3-development-1",
+  "version": "0.0.1",
   "description": "Use data with confidence in nuxt using `zod` ",
   "main": "index.ts",
   "scripts": {
