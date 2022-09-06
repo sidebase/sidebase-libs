@@ -1,0 +1,38 @@
+{
+  "name": "@sidestream-tech/nuxt-sidebase-parse",
+  "version": "0.0.3-development-1",
+  "description": "Use data with confidence in nuxt using `zod` ",
+  "main": "index.ts",
+  "scripts": {
+    "test": "vitest --run",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidestream-tech/nuxt-sidebase-zod.git"
+  },
+  "keywords": [
+    "zod",
+    "nuxt",
+    "typescript",
+    "parsing",
+    "validation",
+    "vue",
+    "h3"
+  ],
+  "author": "sidestream-tech",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sidestream-tech/nuxt-sidebase-zod/issues"
+  },
+  "homepage": "https://github.com/sidestream-tech/nuxt-sidebase-zod#readme",
+  "devDependencies": {
+    "@vitest/coverage-c8": "^0.23.1",
+    "eslint": "^8.23.0",
+    "jsdom": "^20.0.0",
+    "typescript": "^4.8.2",
+    "vitest": "^0.23.1"
+  }
+}

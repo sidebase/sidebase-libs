@@ -1,0 +1,18 @@
+{
+  "exclude": [
+    "coverage",
+    "dist",
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*",
+    "vitest.config.ts"
+  ],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "strict": true,
+    "sourceMap": true,
+    "target": "ES6",
+    "outDir": "dist"
+  }
+}
