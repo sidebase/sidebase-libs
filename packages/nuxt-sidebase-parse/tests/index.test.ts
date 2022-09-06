@@ -1,10 +1,10 @@
 import { expect } from 'chai'
 import { describe, it } from 'vitest'
 
-import returnsFive from '../src'
+import returnsHelloWorld from '../src'
 
 describe('The package works correctly', () => {
   it('returns 5', () => {
-    expect(returnsFive()).equals(5)
+    expect(returnsHelloWorld('Bernd')).equals('Hello, Bernd')
   })
 })

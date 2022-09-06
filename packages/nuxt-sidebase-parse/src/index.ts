@@ -1,1 +1,1 @@
-export default () => 5
+export default (name: string) => `Hello, ${name}`
