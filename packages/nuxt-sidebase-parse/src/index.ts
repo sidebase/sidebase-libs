@@ -96,7 +96,9 @@ function parseHeaderAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent
 }
 
 /**
- * Parse arbitrary data using a schema.
+ * Parse arbitrary data or promise returning data using a schema.
+ *
+ * The function throws if a data-promise is passed in and the promise rejects.
  *
  * E.g.:
  * ```
@@ -121,16 +123,7 @@ function parseHeaderAs<ZodSchema extends z.ZodTypeAny>(event: CompatibilityEvent
  * @param {string} [errorMessage="Data parsing failed"] - Optional error message if parsing fails
  */
 async function parseDataAs<ZodSchema extends z.ZodTypeAny>(dataOrPromise: any | Promise<any>, schema: ZodSchema, errorCode = 422, errorMessage = "Data parsing failed") {
-  let data
-  try {
-    data = await dataOrPromise
-  } catch (error) {
-    throw createError({
-      statusCode: errorCode,
-      statusMessage: "Data promise was rejected",
-      data: error,
-    })
-  }
+  const data = await dataOrPromise
   return apiValidateWithSchema(data, schema, errorCode, errorMessage)
 }
 
@@ -140,6 +133,8 @@ async function parseDataAs<ZodSchema extends z.ZodTypeAny>(dataOrPromise: any | 
  * @param {z.ZodTypeAny} schema - message to return to client if parsing and validating `D` fails
  * @param {number} errorCode - error code of error if parsing fails
  * @param {string} errorMessage - error message if parsing fails
+ *
+ * The function throws if a data-promise is passed in and the promise rejects.
  *
  * The returned parser can then be used like this:
  * ```ts
@@ -158,16 +153,7 @@ async function parseDataAs<ZodSchema extends z.ZodTypeAny>(dataOrPromise: any | 
  */
 function makeParser<ZodSchema extends z.ZodTypeAny>(schema: ZodSchema, errorCode = 422, errorMessage = "Data parsing failed") {
   return async (dataOrPromise: any | Promise<any>, errorCodeOverwrite = undefined, errorMessageOverwrite = undefined) => {
-    let data
-    try {
-      data = await dataOrPromise
-    } catch (error) {
-      throw createError({
-        statusCode: errorCodeOverwrite || errorCode,
-        statusMessage: "Data promise was rejected",
-        data: error,
-      })
-    }
+    const data = await dataOrPromise
     return apiValidateWithSchema(await data, schema, errorCodeOverwrite || errorCode, errorMessageOverwrite || errorMessage)
   }
 }
