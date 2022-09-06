@@ -6,7 +6,6 @@
   },
   "version": "0.1.1-alpha.0",
   "description": "Use data with confidence in nuxt using `zod` ",
-  "type": "module",
   "scripts": {
     "test": "vitest --run",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
