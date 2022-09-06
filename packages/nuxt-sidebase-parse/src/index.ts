@@ -152,13 +152,43 @@ async function parseDataAs<ZodSchema extends z.ZodTypeAny>(dataOrPromise: any | 
  * ```
  */
 function makeParser<ZodSchema extends z.ZodTypeAny>(schema: ZodSchema, errorCode = 422, errorMessage = "Data parsing failed") {
-  return async (dataOrPromise: any | Promise<any>, errorCodeOverwrite = undefined, errorMessageOverwrite = undefined) => {
-    const data = await dataOrPromise
-    return apiValidateWithSchema(await data, schema, errorCodeOverwrite || errorCode, errorMessageOverwrite || errorMessage)
+  return (data: any, errorCodeOverwrite = undefined, errorMessageOverwrite = undefined) => {
+    return apiValidateWithSchema(data, schema, errorCodeOverwrite || errorCode, errorMessageOverwrite || errorMessage)
+  }
+}
+
+/**
+ * Make a data transformer based on a schema. All data passed into it will be turned into data of that schema (or the transformer will throw during parsing)
+ * This method will throw an exception (like 422 Unprocessible Entity) if data validation fails. The error code and message can be customized.
+ * @param {z.ZodTypeAny} schema - message to return to client if parsing and validating `D` fails
+ * @param {number} errorCode - error code of error if parsing fails
+ * @param {string} errorMessage - error message if parsing fails
+ *
+ * The function throws if a data-promise is passed in and the promise rejects.
+ *
+ * The returned parser can then be used like this:
+ * ```ts
+ * const parseDbPromise = makeParser(z.object({
+ *  createdAt: z.date()
+ * }))
+ *
+ * const fakeDatabaseQuery = async () => { test: "1" }
+ *
+ * const data = await parseDbPromise(fakeDatabaseQuery)
+ *
+ * console.log(parsedData)
+ * // -> output: `1` (as a number, as `z` also deserializes)
+ * ```
+ */
+function makePromiseParser<ZodSchema extends z.ZodTypeAny>(schema: ZodSchema, errorCode = 422, errorMessage = "Data-promise parsing failed") {
+  return async (promise: Promise<any>, errorCodeOverwrite = undefined, errorMessageOverwrite = undefined) => {
+    const data = await promise
+    return apiValidateWithSchema(data, schema, errorCodeOverwrite || errorCode, errorMessageOverwrite || errorMessage)
   }
 }
 
 export {
+  // h3-focused helpers
   parseBodyAs,
   parseParamsAs,
   parseQueryAs,
@@ -166,8 +196,10 @@ export {
   parseHeaderAs,
   parseDataAs,
 
+  // general utitilities
   makeParser,
+  makePromiseParser,
 
-  // re-export `z` for DX
+  // `z` for better DX
   z
 }
