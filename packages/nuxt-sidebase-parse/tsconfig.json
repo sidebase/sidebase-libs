@@ -10,6 +10,7 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "declaration": true,
+    "skipLibCheck": true,
     "strict": true,
     "sourceMap": true,
     "target": "ES6",
