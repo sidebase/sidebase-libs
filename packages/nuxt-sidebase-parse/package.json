@@ -4,7 +4,7 @@
     "node": ">=16.14.2",
     "npm": ">=8.5.0"
   },
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Use data with confidence in nuxt using `zod` ",
   "scripts": {
     "test": "vitest --run",
