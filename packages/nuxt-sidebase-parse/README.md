@@ -2,27 +2,31 @@
 
 A nuxt focused package to make data validation and parsing easy. This package follows the design philosophy of the article [parse, don't validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/).
 
+Full tsdoc-documentation is here: https://nuxt-sidebase-parse.sidebase.io
+
+## Features
+
+- ✔️ Validate Data using [`zod`](https://github.com/colinhacks/zod)
+- ✔️ Deserialize and Serialize user, backend, api data
+- ✔️ Helpers focused on Nuxt 3 usage and developer experience
+
 ## Usage
 
 
 ```bash
-npm i -D @sidestream-tech/nuxt-sidebase-parse
+npm i @sidestream-tech/nuxt-sidebase-parse
 ```
 
 Then, e.g., in your code:
 
 - Make an arbitrary parser, e.g., to deserialize data from an API:
     ```ts
-    // Ensure that the outcome is of type `number` with a value `200 <= outcome <= 499`
-    const transform = makeParser(z.number().min(200).max(499))
-
+    // Ensure that the outcome is a literal `400`
+    const transform = makeParser(z.literal('400'))
     const { data } = useFetch('https://httpbin.org/status/400', { transform })
 
     console.log(data)
-    // -> output: `400`
-
-    console.log(typeof data)
-    // -> output: `number`
+    // -> output: `'400'`
     ```
 - Handle user data in an endpoint:
     ```ts
@@ -63,6 +67,8 @@ Then, e.g., in your code:
     ```
 
 ## Documentation
+
+Full tsdoc-documentation is here: https://nuxt-sidebase-parse.sidebase.io
 
 This module exports:
 - `parseBodyAs`: Parse body of `h3` event
