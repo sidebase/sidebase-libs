@@ -38,7 +38,7 @@ Then, e.g., in your code:
         // -> `data is {"uuid":"f8df921c-d7f3-43c1-ac9b-3cf5d4da2f7b"}`
 
         console.log(`error is ${error.value}`)
-        // -> `error is true`
+        // -> `error is false`
         ```
     - Example with invalid data:
         ```ts
