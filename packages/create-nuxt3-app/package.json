@@ -8,6 +8,7 @@
   "description": "Create a nuxt 3 app in seconds",
   "bin": "src/cli.ts",
   "scripts": {
+    "start": "node .",
     "test": "vitest --run",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "type": "tsc --noEmit",
@@ -46,6 +47,7 @@
   },
   "homepage": "https://github.com/sidestream-tech/sidebase-libs/tree/main/packages/create-nuxt3-app",
   "devDependencies": {
+    "@types/prompts": "^2.0.14",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "@vitest/coverage-c8": "^0.23.1",
@@ -55,6 +57,7 @@
     "vitest": "^0.23.1"
   },
   "dependencies": {
-    "chalk": "^5.0.1"
+    "chalk": "^5.0.1",
+    "prompts": "^2.4.2"
   }
 }
