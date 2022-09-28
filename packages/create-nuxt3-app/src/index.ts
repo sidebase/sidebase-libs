@@ -16,7 +16,11 @@ import {exec} from "child_process"
   const scaffoldName = userInput.scaffold === "sidebase" ? "community/sidebase" : "v3"
   const projectName = userInput.name || "nuxt3-starter"
 
-  exec(`npx nuxi@latest init -t ${scaffoldName} ${projectName}`, () => {
-    console.log("The scaffold has been created!")
+  exec(`npx nuxi@latest init -t ${scaffoldName} ${projectName}`, (err, stdout) => {
+    if (err) {
+      console.error(err)
+      return
+    }
+    console.log(stdout)
   })
 })()
