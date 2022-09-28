@@ -19,6 +19,7 @@ const PROMPT_QUESTIONS: PromptObject[] = [
 ]
 
 const onCancel = () => {
+  console.info("Aborting execution, bye bye 👋")
   process.exit()
 }
 
