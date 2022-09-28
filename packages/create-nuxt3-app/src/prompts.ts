@@ -6,22 +6,19 @@ const PROMPT_QUESTIONS: PromptObject[] = [
     name: "scaffold",
     message: "Which scaffold would you like to use?",
     choices: [
-      {
-        title: "Simple",
-        description: "Start with a clean default Nuxt3 scaffold.",
-        value: "simple",
-      },
-      {
-        title: "sidebase",
-        description: "Start with a production ready, full-stack Nuxt3 scaffold.",
-        value: "sidebase",
-      },
+      { title: "simple", description: "Start with a clean default Nuxt3 scaffold.", value: "simple" },
+      { title: "sidebase", description: "Start with a production ready, full-stack Nuxt3 scaffold.", value: "sidebase" },
     ],
-    initial: "simple",
+    initial: 1
+  },
+  {
+    type: "text",
+    name: "projectName",
+    message: "What should the project be called?"
   }
 ]
 
-export const getUserInput = async function (): Promise<string> {
+export const getUserInput = async function (): Promise<{scaffold: string, name: string}> {
   const response = await prompts(PROMPT_QUESTIONS)
-  return response.scaffold
+  return { scaffold: response.scaffold, name: response.projectName }
 }

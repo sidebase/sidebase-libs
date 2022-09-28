@@ -6,9 +6,9 @@
   },
   "version": "0.0.1",
   "description": "Create a nuxt 3 app in seconds",
-  "bin": "src/cli.ts",
+  "bin": "dist/index.js",
   "scripts": {
-    "start": "node .",
+    "dev": "npm run build && npm i -g . && create-nuxt3-app",
     "test": "vitest --run",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "type": "tsc --noEmit",
@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "chalk": "^5.0.1",
+    "npm": "^8.19.2",
     "prompts": "^2.4.2"
   }
 }
