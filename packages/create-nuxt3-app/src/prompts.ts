@@ -18,7 +18,11 @@ const PROMPT_QUESTIONS: PromptObject[] = [
   }
 ]
 
+const onCancel = () => {
+  process.exit()
+}
+
 export const getUserInput = async function (): Promise<{scaffold: string, name: string}> {
-  const response = await prompts(PROMPT_QUESTIONS)
+  const response = await prompts(PROMPT_QUESTIONS, { onCancel })
   return { scaffold: response.scaffold, name: response.projectName }
 }
