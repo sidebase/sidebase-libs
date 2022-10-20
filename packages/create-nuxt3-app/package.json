@@ -1,12 +1,14 @@
 {
-  "name": "@sidestream-tech/nuxt-sidebase-parse",
+  "name": "create-nuxt3-app",
   "engines": {
     "node": ">=16.14.2",
     "npm": ">=8.5.0"
   },
-  "version": "0.2.6",
-  "description": "Use data with confidence in nuxt using `zod` ",
+  "version": "0.0.1",
+  "description": "Create a nuxt 3 app in seconds",
+  "bin": "dist/index.js",
   "scripts": {
+    "dev": "npm run build && npm i -g . && create-nuxt3-app",
     "test": "vitest --run",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "type": "tsc --noEmit",
@@ -31,21 +33,21 @@
     "url": "git+https://github.com/sidestream-tech/sidebase-libs"
   },
   "keywords": [
-    "zod",
     "nuxt",
-    "typescript",
-    "parsing",
-    "validation",
     "vue",
-    "h3"
+    "cli",
+    "create-nuxt-app",
+    "setup",
+    "typescript"
   ],
   "author": "sidestream-tech <support@sidestream.tech>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sidestream-tech/sidebase/issues/new/choose"
   },
-  "homepage": "https://github.com/sidestream-tech/sidebase-libs/tree/main/packages/nuxt-sidebase-parse",
+  "homepage": "https://github.com/sidestream-tech/sidebase-libs/tree/main/packages/create-nuxt3-app",
   "devDependencies": {
+    "@types/prompts": "^2.0.14",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "@vitest/coverage-c8": "^0.23.1",
@@ -55,7 +57,8 @@
     "vitest": "^0.23.1"
   },
   "dependencies": {
-    "h3": "^0.7.21",
-    "zod": "^3.19.0"
+    "chalk": "^5.0.1",
+    "npm": "^8.19.2",
+    "prompts": "^2.4.2"
   }
 }

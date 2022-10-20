@@ -5,6 +5,14 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "lint": "lerna run lint",
+    "test": "lerna run test",
+    "type": "lerna run type",
+    "build": "lerna run build",
+    "publish": "lerna publish --no-private"
+  },
   "devDependencies": {
     "lerna": "^5.5.0"
   }
